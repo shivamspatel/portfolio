@@ -17,25 +17,29 @@ async function sendEmail(event) {
   const form = document.querySelector(".contact__form");
 
   try {
-    //Loading state
+    // Show loading state
     loading.classList.remove("hidden");
 
-    // emailjs
-    await emailjs.sendForm(
+    // Send email using EmailJS
+    const response = await emailjs.sendForm(
       "service_30w9tn2",
       "template_yjhflrf",
       event.target,
       "BZkIKfL-2CYb4SPVl"
     );
 
-    //success state
+    console.log("Email sent successfully:", response);
+
+    // Reset form and show success message
     form.reset();
     loading.classList.add("hidden");
-    body.classlist.add("success-open");
+    body.classList.add("success-open");
+
     setTimeout(() => {
-      body.classlist.remove("success-open");
+      body.classList.remove("success-open");
     }, 5000);
-  } catch {
+  } catch (error) {
+    console.error("Error sending email:", error);
     loading.classList.add("hidden");
     alert("Please try again later or contact me at shivam2477@gmail.com");
   }
